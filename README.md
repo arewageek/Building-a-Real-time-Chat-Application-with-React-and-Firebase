@@ -57,14 +57,14 @@ To scaffold our chat application, we'll utilize Create React App (CRA), a comman
 1. Navigate to the directory where you want to create your project.
 
 2. Run the following command to create a new React project named "chat-app":
-   
+   ```bash
    npx create-react-app chat-app
-   
+   ```
 
 3. Once the project is created, navigate into the project folder:
-   
+   ```bash
    cd chat-app
-   
+   ```
 
 Congratulations! You've successfully created a new React project for your chat application. 
 
@@ -72,9 +72,9 @@ Congratulations! You've successfully created a new React project for your chat a
 
 To integrate Firebase into our project, we need to install the necessary dependencies. Firebase provides a JavaScript SDK that enables us to interact with its services. In your project directory, run the following command to install Firebase:
 
-
+```bash
 npm install firebase
-
+```
 
 This will add the Firebase SDK to your project, allowing us to utilize Firebase services such as the real-time database and authentication.
 
@@ -82,7 +82,7 @@ This will add the Firebase SDK to your project, allowing us to utilize Firebase 
 
 Now that we have installed the Firebase SDK, we need to configure our project to connect to Firebase. Follow these steps:
 
-1. Visit the Firebase website (https://firebase.google.com) and sign in with your Google account. If you don't have an account, you can create one for free.
+1. Visit the [Firebase website](https://firebase.google.com) and sign in with your Google account. If you don't have an account, you can create one for free.
 
 2. Create a new Firebase project by clicking on the "Add Project" button.
 
@@ -107,7 +107,7 @@ In order to store and synchronize chat messages in real time, we'll leverage Fir
 
 To configure the Realtime Database, we need to access the Firebase console. Follow these steps:
 
-1. Go to the Firebase website (https://firebase.google.com) and sign in with your Google account.
+1. Go to the [Firebase Website](https://firebase.google.com) and sign in with your Google account.
 
 2. Select your chat application project.
 
@@ -134,13 +134,14 @@ By default, Firebase sets the database rules to allow full read and write access
 2. Click on the "Rules" tab.
 
 3. Replace the existing rules with the following rules:
-   json
+   ```json
    {
      "rules": {
        ".read": "auth != null",
        ".write": "auth != null"
      }
    }
+   ```
    
    These rules ensure that only authenticated users can read from and write to the database.
 
@@ -157,7 +158,7 @@ Now it's time to create the initial structure for our chat application in the Fi
 3. Under the "Realtime Database" tab, click on the "Create Database" button.
 
 4. In the "Create Data" dialog, add the following structure:
-   json
+   ```json
    
    {
      "messages": {
@@ -175,7 +176,8 @@ Now it's time to create the initial structure for our chat application in the Fi
      }
    }
    
-   Feel free to add more sample messages or modify the structure according to your needs.
+   
+   
 
 5. Click on the "Add" button to create the initial data structure.
 
@@ -197,7 +199,7 @@ In this subsection, we'll start by setting up the basic structure of our chat co
 2. Create a new file called `Chat.js` in the `src` folder.
 
 3. Open the `Chat.js` file and import the necessary dependencies:
-   jsx
+   ```jsx
    
    import React, { useState, useEffect } from 'react';
    import firebase from 'firebase/app';
@@ -206,7 +208,7 @@ In this subsection, we'll start by setting up the basic structure of our chat co
    
 
 4. Create a functional component named `Chat`:
-   jsx
+   ```jsx
    
    function Chat() {
      return (
@@ -220,7 +222,7 @@ In this subsection, we'll start by setting up the basic structure of our chat co
 ### Step 2: Initializing Firebase
 
 1. In the `Chat.js` file, below the `Chat` component, initialize Firebase by adding the Firebase configuration obtained from the Firebase console (refer back to Section 3, Step 4):
-   jsx
+   ```jsx
    
    const firebaseConfig = {
      // Your Firebase configuration object
@@ -232,7 +234,7 @@ In this subsection, we'll start by setting up the basic structure of our chat co
 ### Step 3: Exporting the Chat Component
 
 1. At the bottom of the `Chat.js` file, export the `Chat` component as the default export:
-   jsx
+   ```jsx
    
    export default Chat;
    
@@ -245,7 +247,7 @@ In this subsection, we'll focus on rendering chat messages and applying basic st
 ### Step 1: Creating a Message Component
 
 1. Inside the `Chat.js` file, below the `Chat` component, create a new functional component named `Message`:
-   jsx
+   ```jsx
    function Message({ content, sender }) {
      return (
        <div>
@@ -259,13 +261,13 @@ In this subsection, we'll focus on rendering chat messages and applying basic st
 ### Step 2: Rendering Messages in the Chat Component
 
 1. Inside the `Chat` component, initialize a state variable to store the messages retrieved from the Firebase database:
-   jsx
+   ```jsx
    
    const [messages, setMessages] = useState([]);
    
 
 2. Use the `useEffect` hook to fetch messages from the Firebase Realtime Database and update the `messages` state whenever the messages change:
-   jsx
+   ```jsx
    
    useEffect(() => {
      const databaseRef = firebase.database().ref('messages');
@@ -283,7 +285,7 @@ In this subsection, we'll focus on rendering chat messages and applying basic st
    
 
 3. Render the messages in the `Chat` component by mapping over the `messages` state:
-   jsx
+   ```jsx
    
    {messages.map((message) => (
      <Message
@@ -297,7 +299,7 @@ In this subsection, we'll focus on rendering chat messages and applying basic st
 ### Step 3: Applying Basic Styling
 
 1. Inside the `Chat.js` file, import a CSS file for styling the chat component:
-   jsx
+   ```jsx
    
    import './Chat.css';
    
@@ -305,7 +307,7 @@ In this subsection, we'll focus on rendering chat messages and applying basic st
 2. Create a new file called `Chat.css` in the same directory as `Chat.js`.
 
 3. Add some basic styling to the chat messages in the `Chat.css` file:
-   css
+   ```css
    
    .message {
      margin-bottom: 10px;
@@ -318,7 +320,7 @@ In this subsection, we'll focus on rendering chat messages and applying basic st
    
 
 4. Apply the CSS classes to the appropriate elements in the `Message` component:
-   jsx
+   ```jsx
    
    function Message({ content, sender }) {
      return (
@@ -338,7 +340,7 @@ In this subsection, we'll focus on implementing the functionality to send messag
 ### Step 1: Creating a Message Input Component
 
 1. Inside the `Chat.js` file, below the `Message` component, create a new functional component named `MessageInput`:
-   jsx
+   ```jsx
    
    function MessageInput() {
      const [message, setMessage] = useState('');
@@ -368,7 +370,7 @@ In this subsection, we'll focus on implementing the functionality to send messag
 ### Step 2: Rendering the MessageInput Component in the Chat Component
 
 1. Inside the `Chat` component, render the `MessageInput` component below the messages:
-   jsx
+   ```jsx
    
    <div>
      {messages.map((message) => (
@@ -385,7 +387,7 @@ In this subsection, we'll focus on implementing the functionality to send messag
 ### Step 3: Implementing Message Sending
 
 1. Inside the `handleSendMessage` function of the `MessageInput` component, implement the logic to send the message to the Firebase Realtime Database:
-   jsx
+   ```jsx
    
    const handleSendMessage = () => {
      if (message.trim() !== '') {
@@ -405,7 +407,7 @@ In this subsection, we'll focus on implementing the functionality to send messag
 ### Step 4: Styling the MessageInput Component
 
 1. Inside the `Chat.css` file, add some basic styling for the message input section:
-   css
+   ```css
    
    .message-input {
      display: flex;
@@ -423,7 +425,7 @@ In this subsection, we'll focus on implementing the functionality to send messag
    
 
 2. Apply the CSS class to the `MessageInput` component in the `Chat.js` file:
-   jsx
+   ```jsx
    
    function MessageInput() {
      return (
@@ -449,13 +451,13 @@ In this subsection, we'll focus on adding user authentication functionality to t
 ### Step 2: Implementing User Authentication in the Chat Component
 
 1. Inside the `Chat.js` file, above the `Chat` component, import the necessary dependencies for Firebase authentication:
-   jsx
+   ```jsx
    
    import 'firebase/auth';
    
 
 2. Modify the `Chat` component to include user authentication logic:
-   jsx
+   ```jsx
    
    function Chat() {
      const [user, setUser] = useState(null);
@@ -485,7 +487,7 @@ In this subsection, we'll focus on adding user authentication functionality to t
 ### Step 3: Displaying User Information in the Chat Component
 
 1. Inside the `Chat` component, below the user authentication logic, display the current user's information:
-   jsx
+   ```jsx
    
    <div>
      <h2>Welcome, {user.displayName || user.email}!</h2>
@@ -496,7 +498,7 @@ In this subsection, we'll focus on adding user authentication functionality to t
 ### Step 4: Adding Timestamps to Messages
 
 1. Modify the `Message` component to display the message timestamp:
-   jsx
+   ```jsx
    
    function Message({ content, sender, timestamp }) {
      const formattedTimestamp = new Date(timestamp).toLocaleString();
@@ -522,7 +524,7 @@ In this subsection, we'll focus on adding the ability for users to edit and dele
 ### Step 1: Adding Edit and Delete Buttons to Messages
 
 1. Inside the `Message` component, add Edit and Delete buttons:
-   jsx
+   ```jsx
    
    function Message({ content, sender, timestamp }) {
      const formattedTimestamp = new Date(timestamp).toLocaleString();
@@ -550,14 +552,14 @@ In this subsection, we'll focus on adding the ability for users to edit and dele
 ### Step 2: Implementing Message Editing
 
 1. Inside the `Message` component, add state to track the editing state and the edited message:
-   jsx
+   ```jsx
    
    const [isEditing, setIsEditing] = useState(false);
    const [editedMessage, setEditedMessage] = useState(content);
    
 
 2. Implement the logic to edit the message and update it in the Firebase Realtime Database:
-   jsx
+   ```jsx
    
    const handleEditMessage = () => {
      setIsEditing(true);
@@ -575,7 +577,7 @@ In this subsection, we'll focus on adding the ability for users to edit and dele
    
 
 3. Conditionally render the message content based on the editing state:
-   jsx
+   ```jsx
    
    {isEditing ? (
      <input
@@ -589,7 +591,7 @@ In this subsection, we'll focus on adding the ability for users to edit and dele
    
 
 4. Render the Save and Cancel buttons when in edit mode:
-   jsx
+   ```jsx
    
    {isEditing ? (
      <div>
@@ -602,7 +604,7 @@ In this subsection, we'll focus on adding the ability for users to edit and dele
 ### Step 3: Implementing Message Deletion
 
 1. Inside the `Message` component, implement the logic to delete the message from the Firebase Realtime Database:
-   jsx
+   ```jsx
    
    const handleDeleteMessage = () => {
      // Implement logic to delete the message from Firebase
@@ -612,7 +614,7 @@ In this subsection, we'll focus on adding the ability for users to edit and dele
 ### Step 4: Securing Message Editing and Deletion
 
 1. To ensure that only the sender can edit or delete their own messages, add conditional rendering to the Edit and Delete buttons:
-   jsx
+   ```jsx
    
    {sender === user.uid && (
      <div>
@@ -631,7 +633,7 @@ In this subsection, we'll focus on enhancing the chat application by adding mess
 ### Step 1: Requesting Notification Permissions
 
 1. Inside the `Chat.js` file, below the existing code, add the following code to request notification permissions when the user is authenticated:
-   jsx
+   ```jsx
    
    useEffect(() => {
      if (Notification.permission !== 'granted') {
@@ -643,7 +645,7 @@ In this subsection, we'll focus on enhancing the chat application by adding mess
 ### Step 2: Handling New Message Notifications
 
 1. Inside the `Chat.js` file, below the existing code, add the following code to listen for new messages and trigger notifications:
-   jsx
+   ```jsx
    
    useEffect(() => {
      const messagesRef = firebase.database().ref('messages');
@@ -671,7 +673,7 @@ In this subsection, we'll focus on enhancing the chat application by adding mess
 ### Step 4: Handling Notification Clicks
 
 1. Inside the `Chat.js` file, below the existing code, add the following code to handle notification clicks and focus the chat window:
-   jsx
+   ```jsx
    
    useEffect(() => {
      const handleNotificationClick = () => {
@@ -694,7 +696,7 @@ In this subsection, we'll focus on enhancing the chat application by adding the 
 ### Step 1: Adding Reaction Buttons to Messages
 
 1. Inside the `Message` component, add reaction buttons:
-   jsx
+   ```jsx
    
    function Message({ content, sender, timestamp }) {
      const [reactions, setReactions] = useState([]);
@@ -721,7 +723,7 @@ In this subsection, we'll focus on enhancing the chat application by adding the 
 ### Step 2: Displaying Reactions
 
 1. Inside the `Message` component, display the reactions:
-   jsx
+   ```jsx
    
    <div className="reactions">
      {reactions.map((emoji, index) => (
@@ -734,11 +736,12 @@ In this subsection, we'll focus on enhancing the chat application by adding the 
 
 1. Install a popular emoji picker library, such as `emoji-mart`:
    
+   ```bash
    npm install emoji-mart
    
 
 2. Import and use the emoji picker in the `MessageInput` component:
-   jsx
+   ```jsx
    
    import { Picker } from 'emoji-mart';
    import 'emoji-mart/css/emoji-mart.css';
